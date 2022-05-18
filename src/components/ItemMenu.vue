@@ -6,14 +6,30 @@
             <img src="" alt="" class="item--img">
         </div>
         <div class="content">
-            <h2 class="item--name"></h2>
-            <p class="item--description">Descrição</p>
-            <p class="item--price">Preço</p>
+            <h2 class="item--name">{{item.name}}</h2>
+            <p class="item--description">{{item.description}}</p>
+            <p class="item--price">{{ item.price }}</p>
         </div>
     </div>
 </template>
 <script>
 export default {
-    name: 'ItemMenu'
+    name: 'ItemMenu',
+    data() {
+        return {
+            
+        }
+    },
+    props: {
+        item: {}
+    },
+    computed: {
+        selecionadaCategoria() {
+            return this.$store.state.selecionadaCategoria
+        },
+        imagemPath() {
+            return require(`../assets/images/${this.selecionadaCategoria}/${this.item.id}.png`)
+        }
+    }
 }
 </script>

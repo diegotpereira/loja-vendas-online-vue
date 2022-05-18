@@ -8,6 +8,11 @@ import { store } from './store/store'
 Vue.use(Vuex)
 Vue.config.productionTip = false
 
+//importação do axios e configuração do vue-api-query com o axios
+import axios from "axios";
+import { Model } from "vue-api-query";
+Model.$http = axios;
+
 new Vue({
     router,
     store,
