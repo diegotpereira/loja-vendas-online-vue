@@ -1,6 +1,6 @@
 <template>
     <div class="items-list">
-        <CarregarAnimacoes />
+        <CarregarAnimacoes v-if="estaCarregado"/>
         <ItemMenu v-for="item in itensLista" :key="item.id" :item="item" />
     </div>
 </template>
@@ -9,7 +9,7 @@
 import ItemMenu from './ItemMenu.vue'
 import CarregarAnimacoes from '../components/CarregarAnimacoes.vue'
 import axios from "axios";
-
+// import BurguerModel from '../models/BurguerModel.js'
 export default {
     name: 'ItemLista',
     data() {
@@ -18,6 +18,9 @@ export default {
             estaCarregado: false
         }
     },
+//     async created() {
+//     this.burgues = await BurguerModel.get();
+//   },
     components: {
         ItemMenu,
         CarregarAnimacoes
@@ -28,17 +31,19 @@ export default {
         }
     },
     methods: {
-            getItemLista() {
-            this.estaCarregado = true
-            this.itensLista = []
+        getItemLista() {
+            this.estaCarregado = true;
+            this.itensLista = [];
             setTimeout(() => {
-                axios.get(`http://localhost:3000/${this.selecionadaCategoria}`)
+                axios
+                .get(`http://localhost:3000/${this.selecionadaCategoria}`)
                 .then((response) => {
-                    this.itensLista = response.data 
-                    this.estaCarregado = false 
-                }, 500)
-            })
-        },
+                    this.itensLista = response.data;
+                    this.estaCarregado = false;
+                    console.log(response);
+                });
+            }, 500);
+        }
     },
     watch: {
         selecionadaCategoria() {
